@@ -27,6 +27,10 @@
 */
 
 
+const ticketPriceElement = document.getElementById('ticket_price');
+console.log("👉" + ticketPriceElement);
+const kmPrice = 0.21 //Prezzo al km in euro
+
 //TODO: Eseguire un controllo sul dato inserito
 const distance = Number(prompt("Inserire il numero di chilometri che si vuole percorrere: "));
 console.log("km viaggio: " + distance);
@@ -35,25 +39,25 @@ console.log("km viaggio: " + distance);
 const age = Number(prompt("Inserire l'età del passeggero: "));
 console.log("età: " + age);
 
-const ticketPriceElement = document.getElementById('ticket_price');
-console.log("👉" + ticketPriceElement);
-const kmPrice = 0.21 //Prezzo al km in euro
+if (distance > 0 && age > 0) {
+    let ticketPrice = distance * kmPrice; //prezzo del biglietto intero
+    console.log("Prezzo biglietto prima di controllare l'età: " + ticketPrice.toFixed(2));
 
-let ticketPrice = distance * kmPrice; //prezzo del biglietto intero
-console.log("Prezzo biglietto prima di controllare l'età: " + ticketPrice.toFixed(2));
+    if (age < 18) {
+        ticketPrice = ticketPrice - ((ticketPrice * 20) / 100);
+        console.log(ticketPrice);
+    } else if (age >= 65) {
+        ticketPrice = ticketPrice - ((ticketPrice * 40) / 100);
+        console.log(ticketPrice);
+    }
 
-if (age < 18) {
-    ticketPrice = ticketPrice - ((ticketPrice * 20) / 100);
-    console.log(ticketPrice);
-} else if (age >= 65) {
-    ticketPrice = ticketPrice - ((ticketPrice * 40) / 100);
-    console.log(ticketPrice);
+    console.log("Prezzo biglietto dopo aver controllato l'età: " + ticketPrice.toFixed(2));
+
+    ticketPriceElement.innerHTML = `Il prezzo del tuo bieglietto è: <strong>${ticketPrice.toFixed(2)}€</strong>`;
+
+} else {
+    ticketPriceElement.innerHTML = 'Uno o più dati inseriti non risultano corretti!';
 }
-
-console.log("Prezzo biglietto dopo aver controllato l'età: " + ticketPrice.toFixed(2));
-
-ticketPriceElement.innerHTML = `Il prezzo del tuo bieglietto è: <strong>${ticketPrice.toFixed(2)}€</strong>`;
-
 
 
 
